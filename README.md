@@ -75,13 +75,13 @@ for a few words.
 
 Example output:
 
-    Epoch 1/50 - avg loss: 3.41
-    Epoch 2/50 - avg loss: 3.08
-    Epoch 3/50 - avg loss: 2.77
+    Epoch 189/1000 - avg loss: 1.1710
+    Epoch 190/1000 - avg loss: 1.1580
+    Epoch 191/1000 - avg loss: 1.1382
 
     Nearest neighbors:
-    cat → dog mouse kitten
-    dog → cat puppy animal
+    language: ['deep', 'processing', 'tasks']
+    vectors: ['cosine', 'measures', 'angle']
 
 ------------------------------------------------------------------------
 

@@ -221,10 +221,11 @@ def load_text_file(path):
         return f.read()
 
 
+
+
+
+
 text = load_text_file("examples/demo_text.txt")
-
-
-
 
 tokens = tokenize(text)
 word_to_idx, idx_to_word, encoded_tokens, word_counts = build_vocab(tokens, min_count=1)
