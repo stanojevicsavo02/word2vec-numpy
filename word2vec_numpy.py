@@ -216,32 +216,32 @@ def nearest_neighbors(word, word_to_idx, idx_to_word, embeddings, top_k=5):
     return sims[:top_k]
 
 
-if __name__ == "__main__":
-    text = """
-    the cat sat on the mat
-    the dog sat on the rug
-    the cat chased the mouse
-    the dog chased the cat
-    the dog barked loudly
-    the cat meowed softly
-    """
+def load_text_file(path):
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
 
-    tokens = tokenize(text)
-    word_to_idx, idx_to_word, encoded_tokens, word_counts = build_vocab(tokens, min_count=1)
 
-    W_in, W_out = train_word2vec_skipgram(
-        encoded_tokens=encoded_tokens,
-        word_counts=word_counts,
-        embed_dim=20,
-        window_size=2,
-        num_negatives=3,
-        lr=0.01,
-        epochs=1000,
-        seed=42
-    )
+text = load_text_file("examples/demo_text.txt")
 
-    print("\nNearest neighbors using W_in:")
-    for test_word in ["cat", "dog", "sat", "chased"]:
-        if test_word in word_to_idx:
-            neighbors = nearest_neighbors(test_word, word_to_idx, idx_to_word, W_in, top_k=3)
-            print(f"{test_word}: {neighbors}")
+
+
+
+tokens = tokenize(text)
+word_to_idx, idx_to_word, encoded_tokens, word_counts = build_vocab(tokens, min_count=1)
+
+W_in, W_out = train_word2vec_skipgram(
+    encoded_tokens=encoded_tokens,
+    word_counts=word_counts,
+    embed_dim=20,
+    window_size=2,
+    num_negatives=3,
+    lr=0.01,
+    epochs=1000,
+    seed=42
+)
+
+print("\nNearest neighbors using W_in:")
+for test_word in ["learning", "language", "word", "vectors", "transformers"]:
+    if test_word in word_to_idx:
+        neighbors = nearest_neighbors(test_word, word_to_idx, idx_to_word, W_in, top_k=3)
+        print(f"{test_word}: {neighbors}")

@@ -1,6 +1,23 @@
-the cat sat on the mat
-the dog sat on the rug
-the cat chased the mouse
-the dog chased the cat
-the dog barked loudly
-the cat meowed softly
+Machine learning is a method of data analysis that automates analytical model building.
+It is based on the idea that systems can learn from data, identify patterns and make decisions
+with minimal human intervention. Deep learning is part of a broader family of machine learning
+methods based on artificial neural networks with representation learning.
+Natural language processing is a subfield of linguistics, computer science, and artificial
+intelligence concerned with the interactions between computers and human language.
+Word embeddings are a type of word representation that allows words with similar meaning
+to have a similar representation in a vector space.
+The skip-gram model predicts surrounding context words given a center word.
+The continuous bag of words model predicts the center word from surrounding context words.
+Negative sampling is an efficient approximation of the full softmax that only updates
+a small subset of weights during each training step.
+Gradient descent is an iterative optimization algorithm used to minimize the loss function.
+Stochastic gradient descent updates parameters using a single training example at a time.
+The dot product of two vectors measures their similarity in terms of both direction and magnitude.
+The sigmoid function maps any real number to a value between zero and one.
+Backpropagation computes gradients of the loss with respect to all model parameters.
+Distributed representations capture semantic relationships between words in a continuous space.
+The cosine similarity between two vectors is the cosine of the angle between them.
+Transfer learning uses knowledge gained from one task to improve performance on a related task.
+Attention mechanisms allow models to focus on the most relevant parts of the input sequence.
+Transformers have become the dominant architecture for natural language processing tasks.
+Embeddings reduce the dimensionality of the input space while preserving semantic information.
