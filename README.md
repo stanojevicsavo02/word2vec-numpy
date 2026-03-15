@@ -20,7 +20,7 @@ I implemented the **skip-gram** variant of Word2Vec with **negative sampling**.
 For each positive `(center, context)` pair extracted from a corpus, the model samples several negative words and optimizes the objective:
 
 $
-L = -\log \sigma(u_o^\top v_c) - \sum_{k=1}^{K}\log \sigma(-u_{n_k}^\top v_c)
+\[L = -\log \sigma(u_o^\top v_c) - \sum_{k=1}^{K}\log \sigma(-u_{n_k}^\top v_c)\]
 $
 
 where:
