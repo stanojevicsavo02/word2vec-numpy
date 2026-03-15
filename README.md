@@ -1,7 +1,7 @@
 # Word2Vec from Scratch (NumPy)
 
 This repository contains a simple implementation of Word2Vec
-(skip-gram with negative sampling)** written entirely in NumPy.
+(skip-gram with negative sampling) written entirely in NumPy.
 
 The goal of this project was to understand how Word2Vec actually works
 under the hood, so everything is implemented manually:
@@ -36,9 +36,9 @@ L = -\log \sigma(u_o^\top v_c) -
 $$
 
 where: 
-- (v_c) is the embedding of the center word 
-- (u_o) is the embedding of the true context word 
-- (u\_{n_k}) are embeddings of negative samples
+- $v_c$ is the embedding of the center word 
+- $u_o$ is the embedding of the true context word 
+- $u\_{n_k}$ are embeddings of negative samples
 
 Gradients are computed manually and applied using stochastic gradient
 descent.
@@ -101,8 +101,8 @@ Possible improvements:
 
 Word2Vec learns two representations for each word:
 
--   W_in --- used when the word appears as the center word\
--   W_out --- used when the word appears as the context word
+-   W_in - used when the word appears as the center word\
+-   W_out - used when the word appears as the context word
 
 During training both matrices are updated, but in practice the final
 embeddings are usually taken from W_in.
