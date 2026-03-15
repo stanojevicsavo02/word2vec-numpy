@@ -106,35 +106,31 @@ def negative_sampling_loss(center_idx, context_idx, neg_indices, W_in, W_out):
 
 
 def train_one_example(center_idx, context_idx, neg_indices, W_in, W_out, lr):
-    # Copy vectors so gradients are computed using the original values
-    v_c = W_in[center_idx].copy()      # shape (d,)
-    u_o = W_out[context_idx].copy()    # shape (d,)
-    U_neg = W_out[neg_indices].copy()  # shape (K, d)
+    v_c = W_in[center_idx].copy()
+    u_o = W_out[context_idx].copy()
+    U_neg = W_out[neg_indices].copy()
 
-    # Forward pass
-    pos_score = np.dot(u_o, v_c)       # scalar
-    neg_scores = U_neg @ v_c           # shape (K,)
+    # forward pass
+    pos_score = np.dot(u_o, v_c)
+    neg_scores = U_neg @ v_c
 
-    pos_sig = sigmoid(pos_score)       # scalar
-    neg_sig = sigmoid(neg_scores)      # shape (K,)
+    pos_sig = sigmoid(pos_score)
+    neg_sig = sigmoid(neg_scores)
 
-    # Loss
+    # loss
     loss = -np.log(pos_sig + 1e-10) - np.sum(np.log(sigmoid(-neg_scores) + 1e-10))
 
     # Gradients
     # d/dx[-log(sigmoid(x))] = sigmoid(x) - 1
-    grad_pos = pos_sig - 1.0           # scalar
+    grad_pos = pos_sig - 1.0
 
     # d/dx[-log(sigmoid(-x))] = sigmoid(x)
-    grad_neg = neg_sig                 # shape (K,)
+    grad_neg = neg_sig
 
-    # Gradient w.r.t. center embedding
     grad_v = grad_pos * u_o + np.sum(grad_neg[:, None] * U_neg, axis=0)
 
-    # Gradient w.r.t. positive output embedding
     grad_u_o = grad_pos * v_c
 
-    # Gradient w.r.t. negative output embeddings
     grad_U_neg = grad_neg[:, None] * v_c[None, :]
 
     # SGD updates
@@ -223,26 +219,26 @@ def load_text_file(path):
 
 
 
+if __name__ == "__main__":
 
+    text = load_text_file("examples/demo_text.txt")
 
-text = load_text_file("examples/demo_text.txt")
+    tokens = tokenize(text)
+    word_to_idx, idx_to_word, encoded_tokens, word_counts = build_vocab(tokens, min_count=1)
 
-tokens = tokenize(text)
-word_to_idx, idx_to_word, encoded_tokens, word_counts = build_vocab(tokens, min_count=1)
+    W_in, W_out = train_word2vec_skipgram(
+        encoded_tokens=encoded_tokens,
+        word_counts=word_counts,
+        embed_dim=20,
+        window_size=2,
+        num_negatives=3,
+        lr=0.01,
+        epochs=1000,
+        seed=42
+    )
 
-W_in, W_out = train_word2vec_skipgram(
-    encoded_tokens=encoded_tokens,
-    word_counts=word_counts,
-    embed_dim=20,
-    window_size=2,
-    num_negatives=3,
-    lr=0.01,
-    epochs=1000,
-    seed=42
-)
-
-print("\nNearest neighbors using W_in:")
-for test_word in ["learning", "language", "word", "vectors", "transformers"]:
-    if test_word in word_to_idx:
-        neighbors = nearest_neighbors(test_word, word_to_idx, idx_to_word, W_in, top_k=3)
-        print(f"{test_word}: {neighbors}")
+    print("\nNearest neighbors using W_in:")
+    for test_word in ["learning", "language", "word", "vectors", "transformers"]:
+        if test_word in word_to_idx:
+            neighbors = nearest_neighbors(test_word, word_to_idx, idx_to_word, W_in, top_k=3)
+            print(f"{test_word}: {neighbors}")
