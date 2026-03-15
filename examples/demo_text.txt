@@ -1,0 +1,6 @@
+the cat sat on the mat
+the dog sat on the rug
+the cat chased the mouse
+the dog chased the cat
+the dog barked loudly
+the cat meowed softly
